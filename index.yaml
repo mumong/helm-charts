@@ -1,0 +1,54 @@
+apiVersion: v1
+entries:
+  observability:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-08-27T14:49:06.612031172+08:00"
+    dependencies:
+    - alias: grafana
+      condition: metric.enabled
+      name: grafana
+      repository: file://charts/grafana
+      version: 9.2.7
+    - condition: metric.enabled
+      name: kube-state-metrics
+      repository: file://charts/kube-state-metrics
+      version: 5.37.0
+    - condition: metric.enabled
+      name: prometheus-node-exporter
+      repository: file://charts/prometheus-node-exporter
+      version: 4.47.0
+    - name: crds
+      repository: file://charts/crds
+      version: 0.0.0
+    - condition: tracing.enabled,tracing.clickhouse.enabled
+      name: clickhouse
+      repository: file://charts/clickhouse
+      version: '*.*.*'
+    - condition: tracing.enabled,tracing.mysql.enabled
+      name: mysql
+      repository: file://charts/mysql
+      version: '*.*.*'
+    - condition: tracing.enabled,tracing.deepflow-agent.enabled
+      import-values:
+      - child: global
+        parent: tracing.global
+      name: deepflow-agent
+      repository: file://charts/deepflow-agent
+      version: '*.*.*'
+    - condition: tracing.stella-agent-ce.enabled
+      name: stella-agent-ce
+      repository: file://charts/stella-agent-ce
+      version: '*.*.*'
+    - condition: tracing.byconity.enabled
+      name: byconity
+      repository: file://charts/byconity
+      version: '*.*.*'
+    description: Unified observability chart
+    digest: 5efd38d4d01637784932f9673e6b8fbf5189148447d17a7fdef6e7bfcd953e3a
+    name: observability
+    type: application
+    urls:
+    - observability-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-08-27T14:49:06.567880086+08:00"
